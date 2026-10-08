@@ -1,0 +1,25 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Dataset
+data/
+
+# Generated Spark output
+output/
+
+# Spark temporary/checkpoint files
+**/checkpoint/
+**/*checkpoint*/
+
+# Logs and temporary files
+*.log
+spark_error.txt
+training_log.txt
+
+# Windows
+desktop.ini
+
+# VS Code
+.vscode/
