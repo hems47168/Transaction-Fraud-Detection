@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FraudGuard AI | Real-Time Transaction Security</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(59, 130, 246, 0.12), transparent 30%),
+                radial-gradient(circle at 90% 20%, rgba(139, 92, 246, 0.10), transparent 28%),
+                #f5f7fb;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            height: 76px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #e7eaf0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .brand-text h2 {
+            font-size: 19px;
+            font-weight: 750;
+            color: #172033;
+        }
+
+        .brand-text span {
+            font-size: 11px;
+            color: #7a8499;
+            letter-spacing: 0.4px;
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #15803d;
+            padding: 9px 15px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 650;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.12);
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 58px 25px 32px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border-radius: 30px;
+            background: #eef4ff;
+            color: #315fc4;
+            border: 1px solid #dbe7ff;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 17px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 5vw, 60px);
+            line-height: 1.04;
+            letter-spacing: -2.5px;
+            margin-bottom: 18px;
+            color: #111827;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            color: #667085;
+            font-size: 16px;
+            line-height: 1.75;
+            max-width: 610px;
+        }
+
+        /* ================= HERO VISUAL ================= */
+
+        .security-visual {
+            min-height: 270px;
+            border-radius: 28px;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.3), transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(167, 139, 250, 0.3), transparent 35%),
+                linear-gradient(135deg, #111b38, #1d2851);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(31, 41, 80, 0.22);
+        }
+
+        .security-visual::before {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .security-visual::after {
+            content: "";
+            position: absolute;
+            width: 330px;
+            height: 330px;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .shield {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 105px;
+            height: 125px;
+            background: linear-gradient(145deg, #3b82f6, #6366f1);
+            clip-path: polygon(
+                50% 0%,
+                91% 14%,
+                86% 65%,
+                50% 100%,
+                14% 65%,
+                9% 14%
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 38px;
+            filter: drop-shadow(0 15px 25px rgba(59,130,246,0.45));
+        }
+
+        .visual-label {
+            position: absolute;
+            bottom: 22px;
+            left: 25px;
+            color: rgba(255,255,255,0.75);
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .visual-label strong {
+            color: white;
+            display: block;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        /* ================= MAIN CARD ================= */
+
+        .main-container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 15px 25px 70px;
+        }
+
+        .transaction-card {
+            background: rgba(255,255,255,0.96);
+            border: 1px solid #e6eaf1;
+            border-radius: 25px;
+            box-shadow: 0 18px 55px rgba(31, 41, 55, 0.08);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 26px 32px;
+            border-bottom: 1px solid #edf0f5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .card-title-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .card-title h2 {
+            font-size: 19px;
+            margin-bottom: 3px;
+        }
+
+        .card-title p {
+            color: #8992a5;
+            font-size: 12px;
+        }
+
+        .ml-badge {
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: #f5f3ff;
+            color: #6d28d9;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .form-area {
+            padding: 32px;
+        }
+
+        /* ================= FORM ================= */
+
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #8a93a5;
+            font-weight: 750;
+            margin-bottom: 14px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 13px;
+            color: #4b5565;
+            font-weight: 650;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 49px;
+            padding: 0 15px;
+            border: 1px solid #dfe4ec;
+            border-radius: 11px;
+            background: #fbfcfe;
+            color: #1f2937;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #5b7cfa;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(91,124,250,0.10);
+        }
+
+        .input-help {
+            color: #9aa2b1;
+            font-size: 11px;
+        }
+
+        .form-divider {
+            height: 1px;
+            background: #edf0f4;
+            margin: 30px 0;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .analyze-button {
+            width: 100%;
+            height: 55px;
+            border: none;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #2563eb, #5b4de8);
+            color: white;
+            font-size: 15px;
+            font-weight: 750;
+            cursor: pointer;
+            box-shadow: 0 12px 25px rgba(37, 99, 235, 0.22);
+            transition: 0.25s ease;
+        }
+
+        .analyze-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px rgba(37, 99, 235, 0.28);
+        }
+
+        .analyze-button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ================= RESULT ================= */
+
+        #resultSection {
+            display: none;
+            margin-top: 28px;
+        }
+
+        .result-card {
+            border-radius: 22px;
+            padding: 30px;
+            background: linear-gradient(145deg, #f8faff, #ffffff);
+            border: 1px solid #e0e6f2;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+
+        .result-header h2 {
+            font-size: 20px;
+        }
+
+        .result-header span {
+            color: #8a93a5;
+            font-size: 12px;
+        }
+
+        .score-area {
+            display: grid;
+            grid-template-columns: 190px 1fr;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .score-circle {
+            width: 175px;
+            height: 175px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at center, white 62%, transparent 63%),
+                conic-gradient(#4f46e5 0deg, #4f46e5 var(--score-angle), #e8ecf4 var(--score-angle));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            box-shadow: 0 12px 35px rgba(50, 65, 110, 0.12);
+        }
+
+        .score-value {
+            font-size: 30px;
+            font-weight: 800;
+            color: #172033;
+        }
+
+        .score-label {
+            color: #8992a5;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .result-details {
+            display: grid;
+            gap: 13px;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 16px;
+            background: white;
+            border: 1px solid #edf0f5;
+            border-radius: 11px;
+        }
+
+        .detail-row span:first-child {
+            color: #8992a5;
+            font-size: 12px;
+        }
+
+        .detail-row span:last-child {
+            font-size: 13px;
+            font-weight: 700;
+            color: #293347;
+            text-align: right;
+            max-width: 65%;
+            overflow-wrap: anywhere;
+        }
+
+        .classification {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px 11px;
+            border-radius: 8px;
+            font-size: 11px !important;
+            font-weight: 800 !important;
+        }
+
+        .classification.genuine {
+            background: #ecfdf3;
+            color: #15803d !important;
+        }
+
+        .classification.suspicious {
+            background: #fff7ed;
+            color: #c2410c !important;
+        }
+
+        .classification.fraud {
+            background: #fef2f2;
+            color: #dc2626 !important;
+        }
+
+        .status-message {
+            margin-top: 18px;
+            padding: 15px 17px;
+            border-radius: 11px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .status-message.genuine {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #dcfce7;
+        }
+
+        .status-message.pending {
+            background: #fff7ed;
+            color: #9a3412;
+            border: 1px solid #fed7aa;
+        }
+
+        .status-message.fraud {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        /* ================= FOOTER INFO ================= */
+
+        .trust-row {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .trust-card {
+            background: rgba(255,255,255,0.7);
+            border: 1px solid #e7ebf2;
+            border-radius: 15px;
+            padding: 17px;
+            text-align: center;
+        }
+
+        .trust-card strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .trust-card span {
+            font-size: 11px;
+            color: #8a93a5;
+        }
+
+        footer {
+            text-align: center;
+            color: #9aa2b1;
+            font-size: 11px;
+            padding: 0 20px 35px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 40px;
+            }
+
+            .security-visual {
+                min-height: 220px;
+            }
+
+            .score-area {
+                grid-template-columns: 1fr;
+            }
+
+            .score-circle {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 0 20px;
+            }
+
+            .system-status {
+                display: none;
+            }
+
+            .hero,
+            .main-container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group.full {
+                grid-column: auto;
+            }
+
+            .form-area,
+            .card-header,
+            .result-card {
+                padding: 22px;
+            }
+
+            .trust-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="brand">
+        <div class="brand-icon">🛡</div>
+
+        <div class="brand-text">
+            <h2>FraudGuard AI</h2>
+            <span>REAL-TIME BANKING SECURITY</span>
+        </div>
+    </div>
+
+    <div class="system-status">
+        <div class="status-dot"></div>
+        ML Detection Active
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <div>
+
+        <div class="hero-badge">
+            ✦ AI-POWERED TRANSACTION ANALYSIS
+        </div>
+
+        <h1>
+            Secure every<br>
+            transaction with <span>AI.</span>
+        </h1>
+
+        <p class="hero-description">
+            Analyze banking transactions in real time using a machine
+            learning fraud detection system powered by distributed
+            stream processing.
+        </p>
+
+    </div>
+
+
+    <div class="security-visual">
+
+        <div class="shield">✓</div>
+
+        <div class="visual-label">
+            <strong>Real-Time Protection</strong>
+            Continuous ML-based transaction analysis
+        </div>
+
+    </div>
+
+</section>
+
+
+<main class="main-container">
+
+    <div class="transaction-card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+
+                <div class="card-title-icon">
+                    ⇄
+                </div>
+
+                <div>
+                    <h2>Analyze Transaction</h2>
+                    <p>Enter transaction details for real-time ML analysis</p>
+                </div>
+
+            </div>
+
+            <div class="ml-badge">
+                RANDOM FOREST ML
+            </div>
+
+        </div>
+
+
+        <div class="form-area">
+
+            <div class="section-label">
+                Transaction Information
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label for="type">
+                        Transaction Type
+                    </label>
+
+                    <select id="type">
+                        <option value="">Select transaction type</option>
+                        <option value="PAYMENT">Payment</option>
+                        <option value="TRANSFER">Transfer</option>
+                        <option value="CASH_OUT">Cash Out</option>
+                        <option value="DEBIT">Debit</option>
+                        <option value="CASH_IN">Cash In</option>
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="amount">
+                        Transaction Amount
+                    </label>
+
+                    <input
+                        id="amount"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter amount"
+                    >
+
+                    <span class="input-help">
+                        Enter the transaction value
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-divider"></div>
+
+
+            <div class="section-label">
+                Sender Account
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label for="oldbalanceOrg">
+                        Balance Before Transaction
+                    </label>
+
+                    <input
+                        id="oldbalanceOrg"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter sender balance"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="newbalanceOrig">
+                        Balance After Transaction
+                    </label>
+
+                    <input
+                        id="newbalanceOrig"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter sender balance"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-divider"></div>
+
+
+            <div class="section-label">
+                Receiver Account
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label for="oldbalanceDest">
+                        Balance Before Transaction
+                    </label>
+
+                    <input
+                        id="oldbalanceDest"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter receiver balance"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="newbalanceDest">
+                        Balance After Transaction
+                    </label>
+
+                    <input
+                        id="newbalanceDest"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="Enter receiver balance"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-divider"></div>
+
+
+            <button
+                type="button"
+                class="analyze-button"
+                id="analyzeButton"
+                onclick="analyzeTransaction(); return false;"
+            >
+                Analyze Transaction →
+            </button>
+
+
+            <!-- RESULT -->
+
+            <div id="resultSection">
+
+                <div class="result-card">
+
+                    <div class="result-header">
+
+                        <div>
+                            <h2>ML Analysis Result</h2>
+                            <span>Real-time prediction from the trained model</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="score-area">
+
+                        <div
+                            class="score-circle"
+                            id="scoreCircle"
+                            style="--score-angle: 0deg;"
+                        >
+
+                            <div
+                                class="score-value"
+                                id="probability"
+                            >
+                                --
+                            </div>
+
+                            <div class="score-label">
+                                ML FRAUD SCORE
+                            </div>
+
+                        </div>
+
+
+                        <div class="result-details">
+
+                            <div class="detail-row">
+
+                                <span>Transaction ID</span>
+
+                                <span id="transactionId">
+                                    --
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail-row">
+
+                                <span>ML Model</span>
+
+                                <span>
+                                    Random Forest
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail-row">
+
+                                <span>Model Classification</span>
+
+                                <span
+                                    id="classification"
+                                    class="classification"
+                                >
+                                    --
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail-row">
+
+                                <span>Risk Assessment</span>
+
+                                <span
+                                    id="riskLevel"
+                                    class="classification"
+                                >
+                                    --
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="status"
+                        class="status-message"
+                    >
+                        Waiting for analysis...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="trust-row">
+
+        <div class="trust-card">
+            <strong>⚡ Real-Time Processing</strong>
+            <span>Kafka + Spark Streaming</span>
+        </div>
+
+        <div class="trust-card">
+            <strong>🧠 Machine Learning</strong>
+            <span>Random Forest Classifier</span>
+        </div>
+
+        <div class="trust-card">
+            <strong>🔐 Secure Analysis</strong>
+            <span>Automated transaction screening</span>
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+    FraudGuard AI · Real-Time Banking Transaction Fraud Detection
+</footer>
+
+
+<script>
+
+    const API_URL = "http://127.0.0.1:8000";
+
+
+    async function analyzeTransaction() {
+
+        const button = document.getElementById("analyzeButton");
+
+        const type = document.getElementById("type").value;
+
+        const amount = parseFloat(
+            document.getElementById("amount").value
+        );
+
+        const oldbalanceOrg = parseFloat(
+            document.getElementById("oldbalanceOrg").value
+        );
+
+        const newbalanceOrig = parseFloat(
+            document.getElementById("newbalanceOrig").value
+        );
+
+        const oldbalanceDest = parseFloat(
+            document.getElementById("oldbalanceDest").value
+        );
+
+        const newbalanceDest = parseFloat(
+            document.getElementById("newbalanceDest").value
+        );
+
+
+        if (
+            !type ||
+            isNaN(amount) ||
+            isNaN(oldbalanceOrg) ||
+            isNaN(newbalanceOrig) ||
+            isNaN(oldbalanceDest) ||
+            isNaN(newbalanceDest)
+        ) {
+
+            alert("Please enter all transaction details.");
+
+            return;
+        }
+
+
+        button.disabled = true;
+        button.textContent = "Analyzing with ML model...";
+
+
+        document.getElementById("resultSection").style.display = "none";
+
+
+        try {
+
+            const response = await fetch(
+                `${API_URL}/transaction`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        type: type,
+                        amount: amount,
+                        oldbalanceOrg: oldbalanceOrg,
+                        newbalanceOrig: newbalanceOrig,
+                        oldbalanceDest: oldbalanceDest,
+                        newbalanceDest: newbalanceDest
+
+                    })
+                }
+            );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to submit transaction"
+                );
+
+            }
+
+
+            const data = await response.json();
+
+            const transactionId = data.transaction_id;
+
+
+            document.getElementById(
+                "transactionId"
+            ).textContent = transactionId;
+
+
+            await pollResult(transactionId);
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Unable to connect to the Fraud Detection API."
+            );
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Analyze Transaction →";
+
+        }
+
+    }
+
+
+    async function pollResult(transactionId) {
+
+        const maxAttempts = 30;
+
+        for (
+            let attempt = 0;
+            attempt < maxAttempts;
+            attempt++
+        ) {
+
+            try {
+
+                const response = await fetch(
+                    `${API_URL}/transaction/${transactionId}`
+                );
+
+                const data = await response.json();
+
+
+                if (data.result !== "PENDING") {
+
+                    displayResult(data);
+
+                    return;
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Polling error:",
+                    error
+                );
+
+            }
+
+
+            await new Promise(
+                resolve => setTimeout(resolve, 500)
+            );
+
+        }
+
+
+        showPending();
+
+    }
+
+
+    function displayResult(data) {
+
+        const probability =
+            Number(data.fraudProbability);
+
+
+        const percentage =
+            probability * 100;
+
+
+        document.getElementById(
+            "resultSection"
+        ).style.display = "block";
+
+
+        document.getElementById(
+            "probability"
+        ).textContent =
+            percentage.toFixed(2) + "%";
+
+
+        document.getElementById(
+            "classification"
+        ).textContent =
+            data.result;
+
+
+        const scoreAngle =
+            Math.min(probability, 1) * 360;
+
+
+        document.getElementById(
+            "scoreCircle"
+        ).style.setProperty(
+            "--score-angle",
+            `${scoreAngle}deg`
+        );
+
+
+        const classification =
+            document.getElementById(
+                "classification"
+            );
+
+        const riskLevel =
+            document.getElementById(
+                "riskLevel"
+            );
+
+        const status =
+            document.getElementById(
+                "status"
+            );
+
+
+        classification.className =
+            "classification";
+
+
+        riskLevel.className =
+            "classification";
+
+
+        status.className =
+            "status-message";
+
+
+        /*
+         * The Random Forest model's operating
+         * threshold is 0.99.
+         *
+         * The risk display gives a more useful
+         * interpretation of the continuous ML score.
+         */
+
+        if (probability >= 0.99) {
+
+            riskLevel.textContent =
+                "HIGH-CONFIDENCE FRAUD";
+
+            riskLevel.classList.add(
+                "fraud"
+            );
+
+            classification.classList.add(
+                "fraud"
+            );
+
+            status.classList.add(
+                "fraud"
+            );
+
+            status.textContent =
+                "The ML model identified this transaction as high-confidence fraud.";
+
+        }
+
+        else if (probability >= 0.50) {
+
+            riskLevel.textContent =
+                "SUSPICIOUS — REVIEW REQUIRED";
+
+            riskLevel.classList.add(
+                "suspicious"
+            );
+
+            classification.classList.add(
+                "suspicious"
+            );
+
+            status.classList.add(
+                "pending"
+            );
+
+            status.textContent =
+                "The ML model detected elevated fraud risk. Manual review is recommended.";
+
+        }
+
+        else {
+
+            riskLevel.textContent =
+                "LOW RISK";
+
+            riskLevel.classList.add(
+                "genuine"
+            );
+
+            classification.classList.add(
+                "genuine"
+            );
+
+            status.classList.add(
+                "genuine"
+            );
+
+            status.textContent =
+                "The ML model detected a relatively low fraud risk.";
+
+        }
+
+
+        document
+            .getElementById("resultSection")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+    }
+
+
+    function showPending() {
+
+        document.getElementById(
+            "resultSection"
+        ).style.display = "block";
+
+
+        document.getElementById(
+            "probability"
+        ).textContent = "--";
+
+
+        document.getElementById(
+            "classification"
+        ).textContent =
+            "PENDING";
+
+
+        document.getElementById(
+            "riskLevel"
+        ).textContent =
+            "PROCESSING";
+
+
+        document.getElementById(
+            "status"
+        ).className =
+            "status-message pending";
+
+
+        document.getElementById(
+            "status"
+        ).textContent =
+            "The transaction is still being processed by the real-time ML pipeline.";
+
+    }
+
+</script>
+
+</body>
+</html>
